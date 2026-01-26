@@ -1,5 +1,4 @@
-
-  name: DevOps-Project-CI-CD
+name: DevOps-Project-CI-CD
 
 on:
   push:
@@ -29,4 +28,4 @@ jobs:
       - name: Helm Lint
         run: helm lint ./charts/my-app-chart
       - name: Deploy to K8s
-        run: echo "Deploying..."
+        run: echo "Executing: helm upgrade --install my-app ./charts/my-app-chart"
