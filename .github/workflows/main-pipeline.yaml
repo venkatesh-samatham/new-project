@@ -2,7 +2,7 @@ name: DevOps-Project-CI-CD
 
 on:
   push:
-    branches: [ main ] # Only runs when you push to main
+    branches: [ main ]
 
 jobs:
   quality-check:
@@ -12,8 +12,6 @@ jobs:
       - name: Run Unit Tests
         run: |
           cd app
-          # npm install
-          # npm test
           echo "Tests Passed!"
 
   build-and-push:
@@ -34,6 +32,7 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4  # Crucial: This downloads your files so Helm can see the charts
       - name: Helm Lint
         run: helm lint ./charts/my-app-chart
       - name: Deploy to K8s
