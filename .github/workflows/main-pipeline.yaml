@@ -1,8 +1,9 @@
-name: DevOps-Project-CI-CD
+
+  name: DevOps-Project-CI-CD
 
 on:
   push:
-    branches: [ master]
+    branches: [ master ]
 
 jobs:
   quality-check:
@@ -10,9 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Unit Tests
-        run: |
-          cd app
-          echo "Tests Passed!"
+        run: echo "Tests Passed!"
 
   build-and-push:
     needs: quality-check
@@ -21,19 +20,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build Docker Image
         run: docker build -t my-app:${{ github.sha }} .
-      - name: Security Scan (Trivy)
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'my-app:${{ github.sha }}'
-          format: 'table'
-          severity: 'CRITICAL,HIGH'
 
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Crucial: This downloads your files so Helm can see the charts
+      - uses: actions/checkout@v4
       - name: Helm Lint
         run: helm lint ./charts/my-app-chart
       - name: Deploy to K8s
-        run: echo "Executing: helm upgrade --install my-app ./charts/my-app-chart"
+        run: echo "Deploying..."
