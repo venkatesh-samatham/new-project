@@ -38,7 +38,6 @@ jobs:
         run: helm lint ./charts/my-app-chart
 
       - name: Deploy to K8s
-  run: |
-    echo "Executing: helm upgrade --install my-app ./charts/my-app-chart"
-    helm upgrade --install my-app ./charts/my-app-chart
-         
+        run: |
+          echo "Executing: helm upgrade --install my-app ./charts/my-app-chart"
+          helm upgrade --install my-app ./charts/my-app-chart
