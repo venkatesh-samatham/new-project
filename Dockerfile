@@ -3,7 +3,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 #COPY app/package*.json ./
 #RUN npm install
-COPY ..
+COPY . .
 # (Add build command here if using TypeScript/React, e.g., RUN npm run build)
 
 # --- Stage 2: Runtime ---
@@ -16,4 +16,4 @@ USER devopsuser
 # Copy only the essentials from the builder
 COPY --from=builder /app ./
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["node", "app.js"]
