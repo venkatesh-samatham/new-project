@@ -32,9 +32,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Helm
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          choco install kubernetes-helm -y
+        shell: cmd  # This is the secret sauce
+        run: powershell -ExecutionPolicy Bypass -Command "choco install kubernetes-helm -y"
       - name: Helm Lint
         run: helm lint ./charts/my-app-chart
 
