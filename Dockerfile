@@ -1,8 +1,8 @@
 # --- Stage 1: Build ---
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY app/package*.json ./
-RUN npm install
+#COPY app/package*.json ./
+#RUN npm install
 COPY app/ . 
 # (Add build command here if using TypeScript/React, e.g., RUN npm run build)
 
@@ -16,4 +16,4 @@ USER devopsuser
 # Copy only the essentials from the builder
 COPY --from=builder /app ./
 EXPOSE 3000
-CMD ["node", "index.js"]
+#CMD ["node", "index.js"]
