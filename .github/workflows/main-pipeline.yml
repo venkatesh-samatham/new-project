@@ -53,3 +53,5 @@ jobs:
       - name: Deploy to K8s
         run: |
           helm upgrade --install my-app ./charts/my-app-chart
+          - name: Install Helm (Windows Fix)
+          run: choco install kubernetes-helm
