@@ -41,3 +41,15 @@ jobs:
         run: |
           echo "Executing: helm upgrade --install my-app ./charts/my-app-chart"
           helm upgrade --install my-app ./charts/my-app-chart
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v3
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Helm Lint
+        run: helm lint ./charts/my-app-chart
+
+      - name: Deploy to K8s
+        run: |
+          helm upgrade --install my-app ./charts/my-app-chart
