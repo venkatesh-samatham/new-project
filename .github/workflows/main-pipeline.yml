@@ -2,13 +2,15 @@ name: DevOps-Project-CI-CD
 
 on:
   push:
-    branches: [ master ]
+    branches: [ "master" ]
 
 jobs:
   quality-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Run Unit Tests
         run: echo "Tests Passed!"
 
@@ -16,7 +18,9 @@ jobs:
     needs: quality-check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Build Docker Image
         run: docker build -t my-app:${{ github.sha }} .
 
@@ -24,8 +28,16 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        name: Helm Lint
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Helm Lint
         run: helm lint ./charts/my-app-chart
+
       - name: Deploy to K8s
-        run: echo "Executing: helm upgrade --install my-app ./charts/my-app-chart"
+        run: |
+          echo "Executing: helm upgrade --install my-app ./charts/my-app-chart"
+          # helm upgrade --install my-app ./charts/my-app-chart"
