@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Helm
-        uses: choco install kubernetes-helm -y
+        run: : choco install kubernetes-helm -y
 
       - name: Helm Lint
         run: helm lint ./charts/my-app-chart
