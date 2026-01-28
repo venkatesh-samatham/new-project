@@ -26,12 +26,15 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: self-hosted
+    # This sets the default shell for ALL steps in this job
+    defaults:
+      run:
+        shell: cmd 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Install Helm
-        shell: cmd
         run: powershell -ExecutionPolicy Bypass -Command "choco install kubernetes-helm -y"
 
       - name: Set Kubernetes Context
@@ -41,5 +44,4 @@ jobs:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to K8s
-        run: |
-          helm upgrade --install my-app ./charts/my-app-chart
+        run: helm upgrade --install my-app ./charts/my-app-chart
