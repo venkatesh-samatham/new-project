@@ -23,7 +23,7 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    steps:
+    #steps:
       - uses: actions/checkout@v4
       - name: Helm Lint
         run: helm lint ./charts/my-app-chart
