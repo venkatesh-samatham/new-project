@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: app1
-          image: ghcr.io/<GITHUB_OWNER>/app1:latest   # update <GITHUB_OWNER>
+          image: ghcr.io/venkatesh-samatham/app1:latest   # update <GITHUB_OWNER>
           ports:
             - containerPort: 80
