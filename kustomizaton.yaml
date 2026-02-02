@@ -1,0 +1,13 @@
+[200~apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+  kind: Kustomization
+metadata:
+  name: appbox-kustomization
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./apps/whatsapp
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: default
